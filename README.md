@@ -1,11 +1,7 @@
 # Motion Capture Data Automate Labeling Unlabeled Trajectories: 
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77353406-4951e280-6d17-11ea-9df9-541e853d6478.gif">
-</p>
-
-<p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77352104-0c84ec00-6d15-11ea-9d3e-f6b3f3ec1faa.gif">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77354301-f7aa5780-6d18-11ea-9ac5-7657f866cff1.gif">
 </p>
 
 ## Problem: 
@@ -16,6 +12,10 @@ Using the RGB pixel location, I cast a ray from the camera through the RGB video
 
 ## Demo:
 [Video Demo](https://drive.google.com/uc?export=view&id=1T9QogBXx24qYvvsCePVemjddDWOzjJLj)
+
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77353406-4951e280-6d17-11ea-9df9-541e853d6478.gif">
+</p>
 
 ## Tools:
 - Qualisys
