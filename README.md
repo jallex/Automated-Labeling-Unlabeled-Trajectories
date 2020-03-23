@@ -1,7 +1,7 @@
 # Motion Capture Data Automate Labeling Unlabeled Trajectories: 
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77354301-f7aa5780-6d18-11ea-9ac5-7657f866cff1.gif">
+  <img src="https://user-images.githubusercontent.com/44556715/77354301-f7aa5780-6d18-11ea-9ac5-7657f866cff1.gif">
 </p>
 
 ## Problem: 
@@ -14,7 +14,7 @@ Using the RGB pixel location, I cast a ray from the camera through the RGB video
 [Video Demo](https://drive.google.com/uc?export=view&id=1T9QogBXx24qYvvsCePVemjddDWOzjJLj)
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77353406-4951e280-6d17-11ea-9df9-541e853d6478.gif">
+  <img src="https://user-images.githubusercontent.com/44556715/77353406-4951e280-6d17-11ea-9df9-541e853d6478.gif">
 </p>
 
 ## Tools:
@@ -34,6 +34,11 @@ Using the RGB pixel location, I cast a ray from the camera through the RGB video
 - Enable normalize
 - Set correlation to .9 (90% confidence on each frame or tracking will terminate)
 - Let Blender autotrack forward - if it loses track, realign the track manually by dragging it to the desired location and then continue until all frames have been tracked
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/44556715/77356095-0fcfa600-6d1c-11ea-85e1-618d18243eee.gif">
+</p>
+
 - Go to 3D viewport, select camera and press N to bring up the property panel. Place the camera on the Z axis pointing down at 2 meters or more. Set x and y to 0 and set the rotation on all axis to 0. 
 - Go back to movie clip editor, and click Reconstruction > Link Empty to Track (this creates animated empty objects for each tracker)
 
