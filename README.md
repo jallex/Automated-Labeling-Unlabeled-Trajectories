@@ -1,7 +1,11 @@
 # Motion Capture Data Automate Labeling Unlabeled Trajectories: 
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1004f1iDqdWnk4Pf09zevdlU8TcgmS2VI" width="460" height="300">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77353406-4951e280-6d17-11ea-9df9-541e853d6478.gif">
+</p>
+
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/44556715/77352104-0c84ec00-6d15-11ea-9d3e-f6b3f3ec1faa.gif">
 </p>
 
 ## Problem: 
@@ -22,30 +26,42 @@ Using the RGB pixel location, I cast a ray from the camera through the RGB video
 - Export the fbx data containing the positions and rotations of the motion capture and RGB cameras and the c3d file from Qualisys, along with an RGB video with visible trackable markers 
 
 ### Blender set-up 1: RGB video 
+
 - Import RGB video into Blender’s Video Editing workspace. Export the video out as frames
 - Import the frames into Blender’s movie clip editor
-
-<p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1VvpHv2N2UI8lidc8E2qcoZjghSRdqait" width="460" height="300">
-</p>
-
 - Add a track to the ball / marker that you want to track, and adjust tracking settings
 - Set motion model to perspective or affine (handles distortion)
 - Enable normalize
 - Set correlation to .9 (90% confidence on each frame or tracking will terminate)
-
-<p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=13cNRDupiAdptW7k1cHDreoon1BIXbtSA" width="460" height="300">
-</p>
-
 - Let Blender autotrack forward - if it loses track, realign the track manually by dragging it to the desired location and then continue until all frames have been tracked
 - Go to 3D viewport, select camera and press N to bring up the property panel. Place the camera on the Z axis pointing down at 2 meters or more. Set x and y to 0 and set the rotation on all axis to 0. 
 - Go back to movie clip editor, and click Reconstruction > Link Empty to Track (this creates animated empty objects for each tracker)
 
 - Add mocap_jugging.py script to the project.
 ```python
-s = "Python syntax highlighting"
-print s
+
+import bpy
+
+#iterate through each object in this blender project
+for tracker in bpy.data.objects:
+    #if the object is an empty
+    if tracker.type == 'EMPTY':
+        #Add a bone
+        bpy.ops.object.armature_add(enter_editmode=False, location=tracker.matrix_world.translation)
+        #resize the bone
+        bpy.ops.transform.resize(value=(0.5, 0.5, 0.5), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False, release_confirm=True)
+        new_armature = bpy.context.selected_objects[0]
+        #set the bone's parent to be the empty
+        new_armature.parent = tracker
+        #ensure that the bone is at the same location as the tracker
+        new_armature.matrix_world.translation = tracker.matrix_world.translation
+        #create a cube
+        bpy.ops.mesh.primitive_cube_add(size=0.1, enter_editmode=False, location=(0, 0, 0))
+        new_cube = bpy.context.selected_objects[0]
+        #set the cube's parent to be the bone
+        new_cube.parent = new_armature
+        #ensure the cube is also at the tracker's location
+        new_cube.matrix_world.translation = tracker.matrix_world.translation
 ```
 
 - Now, there should be armature and mesh attached to the track. Export an fbx and in the export settings uncheck “NLA strips” and “All Actions”
